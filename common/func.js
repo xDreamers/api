@@ -40,4 +40,14 @@ func.create_id = function(){
 
 }
 
+func.create_sms_code = function(){
+
+    var num="";
+    for(var i=0;i<4;i++){
+        num+=Math.floor(Math.random()*10)
+    }
+
+    return num
+}
+
 module.exports = func;
