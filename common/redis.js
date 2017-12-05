@@ -1,6 +1,8 @@
+var env = require('../config/env')
+
 var db = {};
 var redis = require("redis");
-var client = redis.createClient(27001,'www.xkjtencent.cn');
+var client = redis.createClient(env.port,env.host);
 
 client.on("error", function (err) {
     console.log("Error :" , err);
@@ -23,7 +25,8 @@ db.set = function(key, value, expire, callback){
 
         if (err) {
             console.log(err);
-            callback(err,null);
+            if (callback)
+                callback(err,null);
             return;
         }
 
@@ -31,7 +34,8 @@ db.set = function(key, value, expire, callback){
             client.expire(key, parseInt(expire));
         }
 
-        callback(null,result)
+        if (callback)
+            callback(null,result)
     })
 }
 
@@ -53,6 +57,7 @@ db.get = function(key, callback){
         callback(null,result);
     });
 }
+
 
 module.exports = db;
 

@@ -3,6 +3,9 @@
   "hot_phones":{
     "name":"String",
     "price":"String"
+  },
+  "users":{
+    "phone":"String",
+    "user_id":"String"
   }
-
 }

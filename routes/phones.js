@@ -10,10 +10,6 @@ router.get('/get_hot_phones', function(req, res, next) {
 
 
     mongodb_cli.find("hot_phones",{},{_id:0},function(err,data){
-
-
-        console.log(err)
-        console.log(data)
         if (err){
 
             res.json({code:err,message:"read db error"})
@@ -25,3 +21,6 @@ router.get('/get_hot_phones', function(req, res, next) {
 
 
 module.exports = router;
+
+
+

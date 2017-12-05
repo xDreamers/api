@@ -7,15 +7,19 @@ var path = require('path');
 var mongoose = require('mongoose');
 var logger = require('pomelo-logger').getLogger('mongodb-log');
 
+var table_json = require('../config/table.json')
+
+var env = require('../config/env')
+
 var options = {
-    user: "mongodb_account",
-    pass: "mongodb_password",
+    user: env.user,
+    pass: env.password,
     useMongoClient: true,
     auth : {authMechanism: 'MONGODB-CR'}
 
 };
 
-mongoose.connect('mongodb://@www.xkjtencent.cn:27000/db_api',options);
+mongoose.connect('mongodb://@'+env.host+':'+env.port+'/db_api',options);
 
 mongoose.connection.on('connected', function (err) {
     if (err) logger.error('Database connection failure');
@@ -38,8 +42,7 @@ process.on('SIGINT', function () {
 
 var DB = function () {
     this.mongoClient = {};
-    var filename = path.join(path.dirname(__dirname).replace('app', ''), 'config/table.json');
-    this.tabConf = JSON.parse(fs.readFileSync(path.normalize(filename)));
+    this.tabConf = table_json;
 };
 
 /**
@@ -263,5 +266,8 @@ DB.prototype.where = function (table_name, conditions, options, callback) {
             }
         });
 };
+
+
+
 
 module.exports = new DB();
