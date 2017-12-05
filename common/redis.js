@@ -1,5 +1,5 @@
 var env = require('../config/env')
-
+    env = env.redis
 var db = {};
 var redis = require("redis");
 var client = redis.createClient(env.port,env.host);

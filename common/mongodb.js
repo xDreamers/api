@@ -10,6 +10,7 @@ var logger = require('pomelo-logger').getLogger('mongodb-log');
 var table_json = require('../config/table.json')
 
 var env = require('../config/env')
+    env = env.mongodb;
 
 var options = {
     user: env.user,
