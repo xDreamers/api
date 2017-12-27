@@ -103,6 +103,40 @@ DB.prototype.save = function (table_name, fields, callback) {
 };
 
 /**
+ * 批量保存数据
+ * @param table_name 表名
+ * @param fields 表数据
+ * @param callback 回调方法
+ */
+DB.prototype.saveMany = function (table_name, array, callback) {
+    if (!array) {
+        if (callback) callback({msg: 'Field is not allowed for null'});
+        return false;
+    }
+
+    for (var k = 0;k<array.length;k++) {
+        var fields = array[k];
+        var err_num = 0;
+        for (var i in fields) {
+            if (!this.tabConf[table_name][i]) err_num++;
+        }
+        if (err_num > 0) {
+            if (callback) callback({msg: 'Wrong field name'});
+            return false;
+        }
+    }
+
+    var node_model = this.getConnection(table_name);
+    node_model.insertMany(array,function (err, res) {
+        if (err) {
+            if (callback) callback(err);
+        } else {
+            if (callback) callback(null, res);
+        }
+    });
+};
+
+/**
  * 更新数据
  * @param table_name 表名
  * @param conditions 更新需要的条件 {_id: id, user_name: name}
@@ -115,7 +149,7 @@ DB.prototype.update = function (table_name, conditions, update_fields, callback)
         return;
     }
     var node_model = this.getConnection(table_name);
-    node_model.update(conditions, {$set: update_fields}, {multi: true, upsert: true}, function (err, res) {
+    node_model.update(conditions, update_fields, {multi: true, upsert: true}, function (err, res) {
         if (err) {
             if (callback) callback(err);
         } else {

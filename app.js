@@ -10,6 +10,10 @@ require('./common/prototype')
 var index = require('./routes/index');
 var users = require('./routes/users');
 var phone = require('./routes/phones');
+var heros = require('./routes/heros')
+
+var tools = require('./routes/tool');
+
 
 var app = express();
 
@@ -44,7 +48,15 @@ app.all('*',function (req, res, next) {
 app.use('/', index);
 app.use('/api/user', users);
 
-app.use('/api/phone',phone)
+app.use('/api/phone',phone);
+
+app.use('/api/hero',heros)
+
+
+/*
+app.use('/api/tools',tools)
+*/
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

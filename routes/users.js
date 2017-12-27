@@ -4,12 +4,16 @@ var router = express.Router();
 
 var mongodb_cli = require('../common/mongodb')
 
+/*
 var redis_cli = require('../common/redis')
+*/
 
 
 var func = require('../common/func');
 
+/*
 var sender = require('../common/sms_render');
+*/
 
 
 /* GET users listing. */

@@ -7,5 +7,14 @@
   "users":{
     "phone":"String",
     "user_id":"String"
+  },
+  "heros":{
+    "name":"String",
+    "id":"String",
+    "owned_id":"Array"
+  },
+  "category":{
+    "name":"String",
+    "id":"String"
   }
 }

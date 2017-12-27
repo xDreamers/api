@@ -4,7 +4,9 @@ var router = express.Router();
 
 var mongodb_cli = require('../common/mongodb')
 
+/*
 var redis_cli = require('../common/redis')
+*/
 
 router.get('/get_hot_phones', function(req, res, next) {
 
